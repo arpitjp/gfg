@@ -1,0 +1,45 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int binSearch(int arr[], int key, int lo, int hi)
+{
+    int mid = lo + (hi-lo)/2;
+
+    if(lo>hi) return -1;
+    if(arr[mid] == key) return mid;
+
+    if(arr[mid]>=arr[lo])//left sorted
+    {
+        //left sorted part mai hi hai
+        if(key<=arr[mid] && key >= arr[lo]) return binSearch(arr, key, lo, mid-1);
+        
+        return binSearch(arr, key, mid+1, hi);
+    }
+    //right sorted
+    if(key>=arr[mid] && key <= arr[hi]) return binSearch(arr, key, mid+1, hi);
+    
+    return binSearch(arr, key, lo, mid-1);
+
+    return -1;
+}
+
+int main()
+{
+    ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+    int t, n, key, i=-1, hi, lo;
+    cin >> t;
+    while(t--)
+    {
+        cin >> n;
+        int arr[n];
+        for(int i=0; i<n; i++) cin >> arr[i];
+        cin >> key;
+        lo = 0;
+        hi = n-1;
+        i = binSearch(arr, key, lo, hi);
+
+        cout << i << endl;
+    }
+
+
+}
